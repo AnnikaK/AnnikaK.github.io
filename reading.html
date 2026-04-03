@@ -269,13 +269,14 @@
         function showQuestion() {
             const qData = activeData.questions[currentQ];
             const shuffled = [...qData.a].sort(() => Math.random() - 0.5);
-            document.getElementById('q-num').innerText = currentQ + 1;
             document.querySelector('.progress').innerText = `Question ${currentQ + 1} of ${activeData.questions.length}`;
             document.getElementById('quiz-content').innerHTML = `
                 <p style="font-weight:bold;">${qData.q}</p>
-                ${shuffled.map(opt => `<button class="opt-btn" onclick="checkAnswer(this, '${qData.c}')">${opt}</button>`).join('')}
+               ${shuffled.map(opt => `<button class="opt-btn" onclick="checkAnswer(this, '${qData.c}')">${opt}</button>`).join('')}
             `;
-        }
+         
+            }
+        
 
         function checkAnswer(btn, correct) {
             const buttons = document.querySelectorAll('.opt-btn');
@@ -291,6 +292,7 @@
         }
 
         function showResults() {
+            console.log("Final Score:", score);
     // 1. Calculate points (Example: 10 per correct answer)
     const earnedPoints = score * 10; 
     
@@ -312,10 +314,12 @@
         // 4. SAVE BOTH (The most important step!)
         localStorage.setItem('L_DB', JSON.stringify(users));
         localStorage.setItem('L_CURR', JSON.stringify(curr));
-        
-        // UI Update
-        document.getElementById('score-text').innerText = `You earned ${earnedPoints} points!`;
     }
+    // UI Update
+    document.getElementById('final-score').innerText = `You earned ${earnedPoints} points!`;
+    document.getElementById('quiz-content').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+   
 }
     </script>
 </body>
