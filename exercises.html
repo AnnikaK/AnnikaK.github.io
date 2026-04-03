@@ -149,6 +149,24 @@
         let currentQuestion = 0;
         let score = 0;
 
+        // 1. RE-SYNC SESSION FROM DATABASE
+function syncSession() {
+    let curr = JSON.parse(localStorage.getItem('L_CURR'));
+    let users = JSON.parse(localStorage.getItem('L_DB')) || [];
+
+    // If session is lost but we have a database, try to find the last active user
+    if (!curr && users.length > 0) {
+        // We take the first user just to keep the points saving
+        // Or better: redirect them to login
+        alert("Session lost! Redirecting to login...");
+        window.location.href = 'index.html'; 
+    }
+}
+
+// Run this immediately when the page loads
+syncSession();
+
+
         window.onload = function() {
             const title = document.getElementById('unit-display-title');
             const list = document.getElementById('button-list');
@@ -204,20 +222,35 @@
         }
 
         function showResults() {
-            document.getElementById('quiz-box').style.display = 'none';
-            document.getElementById('result-screen').style.display = 'block';
-            document.getElementById('score-text').innerText = `Total Score: ${score}`;
-            let curr = JSON.parse(localStorage.getItem('L_CURR'));
-            let users = JSON.parse(localStorage.getItem('L_DB')) || [];
-            if (curr) {
-                users = users.map(u => {
-                    if (u.username === curr.username) { u.score = (u.score || 0) + score; curr.score = u.score; }
-                    return u;
-                });
-                localStorage.setItem('L_DB', JSON.stringify(users));
-                localStorage.setItem('L_CURR', JSON.stringify(curr));
-            }
+    const earnedPoints = score * 10; 
+    let users = JSON.parse(localStorage.getItem('L_DB')) || [];
+    let curr = JSON.parse(localStorage.getItem('L_CURR'));
+
+    // If curr is missing, we try to find the user in the DB by a fallback 
+    // (This is a safety net for Firefox local file issues)
+    if (!curr) {
+        alert("Error: Please log in again on the Home page before finishing.");
+        window.location.href = 'index.html';
+        return;
+    }
+
+    // Update the database
+    users = users.map(u => {
+        if (u.username === curr.username) {
+            u.score = (parseInt(u.score) || 0) + earnedPoints;
+            curr.score = u.score;
         }
+        return u;
+    });
+
+    localStorage.setItem('L_DB', JSON.stringify(users));
+    localStorage.setItem('L_CURR', JSON.stringify(curr));
+
+    document.getElementById('quiz-box').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+    document.getElementById('score-text').innerText = `Points: ${earnedPoints}`;
+}
+
     </script>
 </body>
 </html>

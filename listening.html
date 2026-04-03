@@ -68,7 +68,7 @@
     </div>
 
     <!-- Permanent Arrow Link -->
-    <a href="learnly.html" id="page-back-link" class="back-link">← Back to Dashboard</a>
+    <a href="index.html" id="page-back-link" class="back-link">← Back to Dashboard</a>
 
     <script>
         const questions = [
@@ -140,30 +140,36 @@
         }
 
         function showResults() {
-            document.getElementById('quiz-ui-active').style.display = 'none';
-            const resultScreen = document.getElementById('result-screen');
-            resultScreen.style.display = 'block';
-            
-            document.getElementById('score-text').innerText = `You earned ${score} points!`;
-            const feedback = score > 7 ? "Excellent work! You're a pro." : "Good effort! Keep practicing.";
-            document.getElementById('feedback-text').innerText = feedback;
+    // 1. Calculate points (Example: 10 per correct answer)
+    const earnedPoints = score * 10; 
+    
+    // 2. Get the database
+    let curr = JSON.parse(localStorage.getItem('L_CURR'));
+    let users = JSON.parse(localStorage.getItem('L_DB')) || [];
 
-            // Save Score to Database
-            let curr = JSON.parse(localStorage.getItem('L_CURR'));
-            let users = JSON.parse(localStorage.getItem('L_DB')) || [];
+    if (curr) {
+        // 3. Update the user in the list
+        users = users.map(u => {
+            if (u.username === curr.username) {
+                // Use parseInt to avoid math errors
+                u.score = (parseInt(u.score) || 0) + earnedPoints;
+                curr.score = u.score;
+            }
+            return u;
+        });
 
-            if (curr) {
-                users = users.map(user => {
-                    if (user.username === curr.username) {
-                        user.score = (user.score || 0) + score;
-                        curr.score = user.score;
-                    }
-                    return user;
-                });
+        // 4. SAVE BOTH (The most important step!)
+        localStorage.setItem('L_DB', JSON.stringify(users));
+        localStorage.setItem('L_CURR', JSON.stringify(curr));
+        
+        // UI Update
+        document.getElementById('score-text').innerText = `You earned ${earnedPoints} points!`;
+    }
+}
                 localStorage.setItem('L_DB', JSON.stringify(users));
                 localStorage.setItem('L_CURR', JSON.stringify(curr));
-            }
-        }
+        
+
     </script>
 </body>
 </html>
