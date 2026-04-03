@@ -119,6 +119,49 @@
             .practice-btn { font-size: 1.2rem; padding: 20px; }
             .opt-btn { padding: 12px; font-size: 1rem; }
         }
+        .footer-box {
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+    padding: 15px 0;
+    margin-top: 50px; /* Pushes it away from the content */
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-links a {
+    color: #7f8c8d;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.footer-links a:hover {
+    color: #3498db;
+}
+
+.footer-separator {
+    color: #ddd;
+    user-select: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .footer-links {
+        flex-direction: column; /* Stack links on tiny screens */
+        gap: 8px;
+    }
+    .footer-separator {
+        display: none; /* Hide the | bar on mobile */
+    }
+}
     </style>
 </head>
 <body>
@@ -331,4 +374,12 @@ function goToPage(page) {
         }
     </script>
 </body>
+<footer class="footer-box">
+    <div class="footer-links">
+        <a href="#" onclick="alert('Help: If your scores aren\'t saving, make sure you are logged in! Contact support at support@learnly.com')">Help</a>
+        <span class="footer-separator">|</span>
+        <a href="#" onclick="alert('Creation Information: Learnly Unit 1 & 2. Created by Denis Kramer. Built with HTML, CSS, and JS.')">Creation Information</a>
+    </div>
+</footer>
+
 </html>
