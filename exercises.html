@@ -1,52 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Learnly | Exercises</title>
-   <style>
-    body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; color: #333; margin: 0; display: flex; flex-direction: column; align-items: center; padding: 50px 20px; }
-    h1 { color: #2c3e50; font-size: 2.5rem; margin-bottom: 30px; }
-    h2 { color: #7f8c8d; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
-    
-    /* This creates the vertical column */
-    #button-list { 
-        display: flex; 
-        flex-direction: column; 
-        gap: 15px; 
-        align-items: center; 
-        width: 100%;
-    }
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+        }
 
-    .exercise-btn {
-        background: #3498db; 
-        color: white; 
-        border: none; 
-        padding: 18px 45px;
-        font-size: 1.3rem; 
-        font-weight: bold; 
-        border-radius: 12px; 
-        cursor: pointer;
-        transition: 0.3s; 
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-        width: 300px; /* Fixed width for consistent look */
-    }
-    .exercise-btn:hover { transform: translateY(-3px); background: #2980b9; }
-    .u2-style { background: #e74c3c; }
-    .u2-style:hover { background: #c0392b; }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
 
-    #quiz-container { display: none; background: white; padding: 30px; border-radius: 15px; width: 100%; max-width: 600px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-    .question { display: none; } 
-    .question.active { display: block; }
-    .question-text { font-size: 1.3rem; margin-bottom: 20px; color: #2c3e50; font-weight: bold; }
-    .options { display: flex; flex-direction: column; gap: 12px; }
-    .opt-btn { background: #fff; color: #333; border: 2px solid #eee; padding: 15px; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.2s; font-size: 1.1rem; width: 100%; }
-    .opt-btn.correct { background: #2ecc71 !important; color: white; border-color: #27ae60; }
-    .opt-btn.wrong { background: #e74c3c !important; color: white; border-color: #c0392b; }
-    .result-screen { display: none; text-align: center; }
-    .back-link { margin-top: 50px; display: inline-block; color: #3498db; text-decoration: none; font-weight: bold; }
-    .progress { margin-bottom: 20px; font-size: 0.9rem; color: #7f8c8d; font-weight: bold; }
-</style>
+        h2 {
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        /* This creates the vertical column */
+        #button-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .exercise-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            /* Fixed width for consistent look */
+        }
+
+        .exercise-btn:hover {
+            transform: translateY(-3px);
+            background: #2980b9;
+        }
+
+        .u2-style {
+            background: #e74c3c;
+        }
+
+        .u2-style:hover {
+            background: #c0392b;
+        }
+
+        #quiz-container {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .question {
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opt-btn {
+            background: #fff;
+            color: #333;
+            border: 2px solid #eee;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+
+        .opt-btn.correct {
+            background: #2ecc71 !important;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .opt-btn.wrong {
+            background: #e74c3c !important;
+            color: white;
+            border-color: #c0392b;
+        }
+
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .back-link {
+            margin-top: 50px;
+            display: inline-block;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .progress {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
 
     <h1 id="main-title">Exercises</h1>
@@ -64,83 +162,512 @@
         <div id="result-screen" class="result-screen">
             <h2>Mission Complete!</h2>
             <p id="score-text" style="font-size: 1.2rem; margin-bottom: 20px;"></p>
-            <button onclick="location.reload()" class="opt-btn" style="text-align:center; background:#3498db; color:white;">Restart Unit</button>
+            <button onclick="location.reload()" class="opt-btn"
+                style="text-align:center; background:#3498db; color:white;">Restart Unit</button>
         </div>
     </div>
 
     <a href="exercises-hub.html" id="back-arrow" class="back-link">← Back to Units</a>
 
     <script>
+        const SCRIPT_URL =
+            "https://script.google.com/macros/s/AKfycbzjewmXEyNeNOqJwALOHHZiXhgXJ1wGNWDaVQ1RSxDNP5lu824wdb6urIGTYoJLIT0k/exec"
+
         const unitData = {
             1: {
-                1: { title: "Galactic Spelling", questions: [ { q: "The _____ of our galaxy is mysterious.", options: ["beginning", "begining", "begginning"], correct: "beginning" }, { q: "Aliens might use a space _____ to travel.", options: ["vehicle", "vehical", "veicle"], correct: "vehicle" }, { q: "It is _____ to wear a helmet in space.", options: ["necessary", "neccessary", "necesary"], correct: "necessary" }, { q: "The rocket will _____ launch tomorrow.", options: ["definitely", "definately", "definitly"], correct: "definitely" }, { q: "Astronauts have many _____ experiences.", options: ["interesting", "intresting", "interresting"], correct: "interesting" }, { q: "The moon has a _____ surface.", options: ["beautiful", "beatiful", "beautifull"], correct: "beautiful" }, { q: "Wait _____ the countdown reaches zero.", options: ["until", "untill", "until-l"], correct: "until" }, { q: "Space exploration is a huge _____.", options: ["achievement", "achievment", "acheivement"], correct: "achievement" }, { q: "_____ you can see Mars today.", options: ["Occasionally", "Ocasionally", "Occassionally"], correct: "Occasionally" }, { q: "The Martian base is _____ into sections.", options: ["separate", "seperate", "separet"], correct: "separate" } ] },
-                2: { title: "Interstellar Spelling", questions: [ { q: "Earth's _____ protects us.", options: ["atmosphere", "atmosfere", "atmosphäre"], correct: "atmosphere" }, { q: "The Hubble _____ captures galaxies.", options: ["telescope", "teliscope", "telescop"], correct: "telescope" }, { q: "_____ is the study of stars.", options: ["Astronomy", "Astronemy", "Astronomey"], correct: "Astronomy" }, { q: "A GPS _____ orbits Earth.", options: ["satellite", "satelite", "sattelite"], correct: "satellite" }, { q: "The pull of _____ is weaker on the moon.", options: ["gravity", "gravety", "gravitie"], correct: "gravity" }, { q: "Space is a total _____.", options: ["vacuum", "vaccum", "vacume"], correct: "vacuum" }, { q: "A star explosion is a _____.", options: ["supernova", "supernowa", "super-nova"], correct: "supernova" }, { q: "The Milky Way is our _____.", options: ["galaxy", "galexy", "gallaxy"], correct: "galaxy" }, { q: "Mars has a _____ environment.", options: ["different", "diffrent", "diferent"], correct: "different" }, { q: "We need _____ technology.", options: ["advanced", "advanst", "advancet"], correct: "advanced" } ] },
-                3: { title: "Earth & Atmosphere", questions: [ { q: "We breathe _____.", options: ["oxygen", "oxigen", "oxigenne"], correct: "oxygen" }, { q: "Planes fly in the _____.", options: ["stratosphere", "stratosfere", "stratosphaere"], correct: "stratosphere" }, { q: "Air _____ decreases.", options: ["pressure", "presure", "pressur"], correct: "pressure" }, { q: "Clouds form by _____.", options: ["condensation", "condensasion", "condenzation"], correct: "condensation" }, { q: "The ozone blocks _____ rays.", options: ["ultraviolet", "ultraviolit", "ultraviyolet"], correct: "ultraviolet" }, { q: "Weather is a _____.", options: ["phenomena", "phenomana", "phenomina"], correct: "phenomena" }, { q: "Plants need _____ dioxide.", options: ["carbon", "carbone", "karbon"], correct: "carbon" }, { q: "Light _____ makes the sky blue.", options: ["scattering", "scatering", "scattring"], correct: "scattering" }, { q: "Meteorology studies _____.", options: ["weather", "wether", "wheather"], correct: "weather" }, { q: "The sky is _____.", options: ["transparent", "transparant", "transperent"], correct: "transparent" } ] },
-                4: { title: "Europa Explorer", questions: [ { q: "Europa is a _____ of Jupiter.", options: ["satellite", "satelite", "sattelite"], correct: "satellite" }, { q: "The surface is _____ ice.", options: ["frozen", "frosen", "frozzen"], correct: "frozen" }, { q: "There is an _____ below.", options: ["ocean", "osean", "oceane"], correct: "ocean" }, { q: "The ice is very _____.", options: ["smooth", "smoth", "smoothe"], correct: "smooth" }, { q: "It has _____ heat.", options: ["internal", "enternal", "internall"], correct: "internal" }, { q: "It has a thin _____.", options: ["exosphere", "exosfere", "exospheer"], correct: "exosphere" }, { q: "Jupiter is _____.", options: ["powerful", "powerfull", "powreful"], correct: "powerful" }, { q: "Cracks are called _____.", options: ["lineae", "lineay", "lineas"], correct: "lineae" }, { q: "It is our _____.", options: ["neighbor", "neighbour", "naighbor"], correct: "neighbor" }, { q: "Life would be _____.", options: ["extraordinary", "extrordinary", "extraordinery"], correct: "extraordinary" } ] },
-                5: { title: "ISS Mission", questions: [ { q: "The ISS is a _____.", options: ["laboratory", "labratory", "laboratary"], correct: "laboratory" }, { q: "They feel _____.", options: ["weightlessness", "weightlesness", "weightlessnes"], correct: "weightlessness" }, { q: "Orbits take 90 _____.", options: ["minutes", "minuts", "minnutes"], correct: "minutes" }, { q: "Solar _____ provide power.", options: ["arrays", "arays", "arreys"], correct: "arrays" }, { q: "They do space _____.", options: ["walks", "wallks", "walkes"], correct: "walks" }, { q: "It's about _____.", options: ["cooperation", "cooperasion", "co-operation"], correct: "cooperation" }, { q: "Ships carry _____.", options: ["cargo", "kargo", "cargoe"], correct: "cargo" }, { q: "The _____ is unique.", options: ["environment", "enviroment", "envirenment"], correct: "environment" }, { q: "They study _____.", options: ["microgravity", "mickrogravity", "mikrogravity"], correct: "microgravity" }, { q: "It's a big _____.", options: ["challenge", "chalenge", "challange"], correct: "challenge" } ] }
+                1: {
+                    title: "Galactic Spelling",
+                    questions: [{
+                        q: "The _____ of our galaxy is mysterious.",
+                        options: ["beginning", "begining", "begginning"],
+                        correct: "beginning"
+                    }, {
+                        q: "Aliens might use a space _____ to travel.",
+                        options: ["vehicle", "vehical", "veicle"],
+                        correct: "vehicle"
+                    }, {
+                        q: "It is _____ to wear a helmet in space.",
+                        options: ["necessary", "neccessary", "necesary"],
+                        correct: "necessary"
+                    }, {
+                        q: "The rocket will _____ launch tomorrow.",
+                        options: ["definitely", "definately", "definitly"],
+                        correct: "definitely"
+                    }, {
+                        q: "Astronauts have many _____ experiences.",
+                        options: ["interesting", "intresting", "interresting"],
+                        correct: "interesting"
+                    }, {
+                        q: "The moon has a _____ surface.",
+                        options: ["beautiful", "beatiful", "beautifull"],
+                        correct: "beautiful"
+                    }, {
+                        q: "Wait _____ the countdown reaches zero.",
+                        options: ["until", "untill", "until-l"],
+                        correct: "until"
+                    }, {
+                        q: "Space exploration is a huge _____.",
+                        options: ["achievement", "achievment", "acheivement"],
+                        correct: "achievement"
+                    }, {
+                        q: "_____ you can see Mars today.",
+                        options: ["Occasionally", "Ocasionally", "Occassionally"],
+                        correct: "Occasionally"
+                    }, {
+                        q: "The Martian base is _____ into sections.",
+                        options: ["separate", "seperate", "separet"],
+                        correct: "separate"
+                    }]
+                },
+                2: {
+                    title: "Interstellar Spelling",
+                    questions: [{
+                        q: "Earth's _____ protects us.",
+                        options: ["atmosphere", "atmosfere", "atmosphäre"],
+                        correct: "atmosphere"
+                    }, {
+                        q: "The Hubble _____ captures galaxies.",
+                        options: ["telescope", "teliscope", "telescop"],
+                        correct: "telescope"
+                    }, {
+                        q: "_____ is the study of stars.",
+                        options: ["Astronomy", "Astronemy", "Astronomey"],
+                        correct: "Astronomy"
+                    }, {
+                        q: "A GPS _____ orbits Earth.",
+                        options: ["satellite", "satelite", "sattelite"],
+                        correct: "satellite"
+                    }, {
+                        q: "The pull of _____ is weaker on the moon.",
+                        options: ["gravity", "gravety", "gravitie"],
+                        correct: "gravity"
+                    }, {
+                        q: "Space is a total _____.",
+                        options: ["vacuum", "vaccum", "vacume"],
+                        correct: "vacuum"
+                    }, {
+                        q: "A star explosion is a _____.",
+                        options: ["supernova", "supernowa", "super-nova"],
+                        correct: "supernova"
+                    }, {
+                        q: "The Milky Way is our _____.",
+                        options: ["galaxy", "galexy", "gallaxy"],
+                        correct: "galaxy"
+                    }, {
+                        q: "Mars has a _____ environment.",
+                        options: ["different", "diffrent", "diferent"],
+                        correct: "different"
+                    }, {
+                        q: "We need _____ technology.",
+                        options: ["advanced", "advanst", "advancet"],
+                        correct: "advanced"
+                    }]
+                },
+                3: {
+                    title: "Earth & Atmosphere",
+                    questions: [{
+                        q: "We breathe _____.",
+                        options: ["oxygen", "oxigen", "oxigenne"],
+                        correct: "oxygen"
+                    }, {
+                        q: "Planes fly in the _____.",
+                        options: ["stratosphere", "stratosfere", "stratosphaere"],
+                        correct: "stratosphere"
+                    }, {
+                        q: "Air _____ decreases.",
+                        options: ["pressure", "presure", "pressur"],
+                        correct: "pressure"
+                    }, {
+                        q: "Clouds form by _____.",
+                        options: ["condensation", "condensasion", "condenzation"],
+                        correct: "condensation"
+                    }, {
+                        q: "The ozone blocks _____ rays.",
+                        options: ["ultraviolet", "ultraviolit", "ultraviyolet"],
+                        correct: "ultraviolet"
+                    }, {
+                        q: "Weather is a _____.",
+                        options: ["phenomena", "phenomana", "phenomina"],
+                        correct: "phenomena"
+                    }, {
+                        q: "Plants need _____ dioxide.",
+                        options: ["carbon", "carbone", "karbon"],
+                        correct: "carbon"
+                    }, {
+                        q: "Light _____ makes the sky blue.",
+                        options: ["scattering", "scatering", "scattring"],
+                        correct: "scattering"
+                    }, {
+                        q: "Meteorology studies _____.",
+                        options: ["weather", "wether", "wheather"],
+                        correct: "weather"
+                    }, {
+                        q: "The sky is _____.",
+                        options: ["transparent", "transparant", "transperent"],
+                        correct: "transparent"
+                    }]
+                },
+                4: {
+                    title: "Europa Explorer",
+                    questions: [{
+                        q: "Europa is a _____ of Jupiter.",
+                        options: ["satellite", "satelite", "sattelite"],
+                        correct: "satellite"
+                    }, {
+                        q: "The surface is _____ ice.",
+                        options: ["frozen", "frosen", "frozzen"],
+                        correct: "frozen"
+                    }, {
+                        q: "There is an _____ below.",
+                        options: ["ocean", "osean", "oceane"],
+                        correct: "ocean"
+                    }, {
+                        q: "The ice is very _____.",
+                        options: ["smooth", "smoth", "smoothe"],
+                        correct: "smooth"
+                    }, {
+                        q: "It has _____ heat.",
+                        options: ["internal", "enternal", "internall"],
+                        correct: "internal"
+                    }, {
+                        q: "It has a thin _____.",
+                        options: ["exosphere", "exosfere", "exospheer"],
+                        correct: "exosphere"
+                    }, {
+                        q: "Jupiter is _____.",
+                        options: ["powerful", "powerfull", "powreful"],
+                        correct: "powerful"
+                    }, {
+                        q: "Cracks are called _____.",
+                        options: ["lineae", "lineay", "lineas"],
+                        correct: "lineae"
+                    }, {
+                        q: "It is our _____.",
+                        options: ["neighbor", "neighbour", "naighbor"],
+                        correct: "neighbor"
+                    }, {
+                        q: "Life would be _____.",
+                        options: ["extraordinary", "extrordinary", "extraordinery"],
+                        correct: "extraordinary"
+                    }]
+                },
+                5: {
+                    title: "ISS Mission",
+                    questions: [{
+                        q: "The ISS is a _____.",
+                        options: ["laboratory", "labratory", "laboratary"],
+                        correct: "laboratory"
+                    }, {
+                        q: "They feel _____.",
+                        options: ["weightlessness", "weightlesness", "weightlessnes"],
+                        correct: "weightlessness"
+                    }, {
+                        q: "Orbits take 90 _____.",
+                        options: ["minutes", "minuts", "minnutes"],
+                        correct: "minutes"
+                    }, {
+                        q: "Solar _____ provide power.",
+                        options: ["arrays", "arays", "arreys"],
+                        correct: "arrays"
+                    }, {
+                        q: "They do space _____.",
+                        options: ["walks", "wallks", "walkes"],
+                        correct: "walks"
+                    }, {
+                        q: "It's about _____.",
+                        options: ["cooperation", "cooperasion", "co-operation"],
+                        correct: "cooperation"
+                    }, {
+                        q: "Ships carry _____.",
+                        options: ["cargo", "kargo", "cargoe"],
+                        correct: "cargo"
+                    }, {
+                        q: "The _____ is unique.",
+                        options: ["environment", "enviroment", "envirenment"],
+                        correct: "environment"
+                    }, {
+                        q: "They study _____.",
+                        options: ["microgravity", "mickrogravity", "mikrogravity"],
+                        correct: "microgravity"
+                    }, {
+                        q: "It's a big _____.",
+                        options: ["challenge", "chalenge", "challange"],
+                        correct: "challenge"
+                    }]
+                }
             },
-           2: {
-    1: { title: "Mario & Luigi", questions: [
-        { q: "Mario is a _____ character known worldwide.", options: ["professional", "profesional", "proffessional"], correct: "professional" },
-        { q: "Luigi is often considered the more _____ brother.", options: ["courageous", "currageous", "corageous"], correct: "courageous" },
-        { q: "Their primary _____ is to rescue the Princess.", options: ["business", "buisness", "buisiness"], correct: "business" },
-        { q: "They explore _____ environments in every game.", options: ["different", "diffrent", "diferent"], correct: "different" },
-        { q: "Luigi's green outfit is very _____.", options: ["noticeable", "noticable", "noticabel"], correct: "noticeable" },
-        { q: "The brothers work _____ to solve puzzles.", options: ["together", "togethre", "togethere"], correct: "together" },
-        { q: "It is _____ to collect coins for extra lives.", options: ["necessary", "neccessary", "necesary"], correct: "necessary" },
-        { q: "They have had many _____ adventures.", options: ["successful", "succesful", "sucessful"], correct: "successful" },
-        { q: "Mario is _____ stronger than he looks.", options: ["definitely", "definately", "definitly"], correct: "definitely" },
-        { q: "The Mushroom Kingdom is a _____ place.", options: ["beautiful", "beatiful", "beautifull"], correct: "beautiful" }
-    ]},
-    2: { title: "Bowser & Jr.", questions: [
-        { q: "Bowser is the main _____ of the franchise.", options: ["villain", "villin", "villaine"], correct: "villain" },
-        { q: "He has a very intimidating _____.", options: ["appearance", "appearence", "apearance"], correct: "appearance" },
-        { q: "Bowser Jr. is often very _____.", options: ["mischievous", "mischivous", "mischevious"], correct: "mischievous" },
-        { q: "The Koopa King wants to _____ the land.", options: ["conquer", "conqure", "conquar"], correct: "conquer" },
-        { q: "His fire-breathing is extremely _____.", options: ["dangerous", "dangerus", "dangrous"], correct: "dangerous" },
-        { q: "He is a _____ enemy of Mario.", options: ["persistent", "persistant", "peristent"], correct: "persistent" },
-        { q: "Bowser's castle is an _____ fortress.", options: ["enormous", "enormus", "enormos"], correct: "enormous" },
-        { q: "Jr. uses a _____ paintbrush to cause trouble.", options: ["special", "spezial", "spechial"], correct: "special" },
-        { q: "They _____ fail to stop the heroes.", options: ["occasionally", "ocasionally", "occassionally"], correct: "occasionally" },
-        { q: "Bowser Jr. wants his father's _____.", options: ["approval", "aproval", "appruval"], correct: "approval" }
-    ]},
-    3: { title: "Nintendo Dev", questions: [
-        { q: "Nintendo is a very _____ company.", options: ["successful", "succesful", "sucessful"], correct: "successful" },
-        { q: "They focus on _____ game mechanics.", options: ["innovative", "inovative", "innovativ"], correct: "innovative" },
-        { q: "The hardware must be _____ for all users.", options: ["accessible", "accesible", "accessabel"], correct: "accessible" },
-        { q: "Quality control is a top _____.", options: ["priority", "priorety", "prioritie"], correct: "priority" },
-        { q: "Developing a console is a huge _____.", options: ["achievement", "achievment", "acheivement"], correct: "achievement" },
-        { q: "They have a _____ influence on the industry.", options: ["significant", "significannt", "signifikant"], correct: "significant" },
-        { q: "The Switch is a _____ hybrid console.", options: ["versatile", "versatil", "versatyle"], correct: "versatile" },
-        { q: "Nintendo _____ its older games.", options: ["preserves", "prezerves", "presurves"], correct: "preserves" },
-        { q: "The company's _____ is in Kyoto.", options: ["headquarters", "hedquarters", "headquartes"], correct: "headquarters" },
-        { q: "Software updates are released _____.", options: ["periodically", "periodikally", "periodicaly"], correct: "periodically" }
-    ]},
-    4: { title: "Mario Film", questions: [
-        { q: "The movie was an _____ success.", options: ["immediate", "imediate", "immediat"], correct: "immediate" },
-        { q: "The world building was very _____.", options: ["detailed", "detailled", "detaeled"], correct: "detailed" },
-        { q: "The animation was highly _____.", options: ["sophisticated", "sofisticated", "sophistikated"], correct: "sophisticated" },
-        { q: "Critics had _____ opinions at first.", options: ["conflicting", "conflikting", "confliting"], correct: "conflicting" },
-        { q: "The soundtrack sounds _____.", options: ["magnificent", "magnifisent", "magnifikent"], correct: "magnificent" },
-        { q: "It was a _____ experience for fans.", options: ["memorable", "memorebel", "memmorrable"], correct: "memorable" },
-        { q: "The voice acting was _____.", options: ["excellent", "excelent", "excellant"], correct: "excellent" },
-        { q: "It reached a global _____.", options: ["audience", "audienc", "audiense"], correct: "audience" },
-        { q: "The colors were _____ and bright.", options: ["vibrant", "vibrante", "vibrunt"], correct: "vibrant" },
-        { q: "Families went to the _____ together.", options: ["theater", "theatre", "theatear"], correct: "theatre" }
-    ]},
-    5: { title: "Yoshi", questions: [
-        { q: "Yoshi is a _____ companion.", options: ["reliable", "relyable", "reliabel"], correct: "reliable" },
-        { q: "He has a very _____ appearance.", options: ["unique", "uniq", "unike"], correct: "unique" },
-        { q: "Yoshi is _____ from other dinosaurs.", options: ["distinguishable", "distinguishabel", "distingwishable"], correct: "distinguishable" },
-        { q: "His eggs are his main _____.", options: ["weapon", "weapen", "weppon"], correct: "weapon" },
-        { q: "He can stay in the air _____.", options: ["temporarily", "temporerily", "temporaryly"], correct: "temporarily" },
-        { q: "Yoshi is _____ for his long tongue.", options: ["famous", "famos", "famouse"], correct: "famous" },
-        { q: "He is a very _____ character.", options: ["popular", "populer", "poppular"], correct: "popular" },
-        { q: "The level of detail on Yoshi is _____.", options: ["impressive", "impresive", "impressiv"], correct: "impressive" },
-        { q: "Yoshi lives on a _____ island.", options: ["tropical", "tropikal", "tropicle"], correct: "tropical" },
-        { q: "He helps Mario _____ obstacles.", options: ["overcome", "overcum", "over-come"], correct: "overcome" }
-    ]}
-}
+            2: {
+                1: {
+                    title: "Mario & Luigi",
+                    questions: [{
+                            q: "Mario is a _____ character known worldwide.",
+                            options: ["professional", "profesional", "proffessional"],
+                            correct: "professional"
+                        },
+                        {
+                            q: "Luigi is often considered the more _____ brother.",
+                            options: ["courageous", "currageous", "corageous"],
+                            correct: "courageous"
+                        },
+                        {
+                            q: "Their primary _____ is to rescue the Princess.",
+                            options: ["business", "buisness", "buisiness"],
+                            correct: "business"
+                        },
+                        {
+                            q: "They explore _____ environments in every game.",
+                            options: ["different", "diffrent", "diferent"],
+                            correct: "different"
+                        },
+                        {
+                            q: "Luigi's green outfit is very _____.",
+                            options: ["noticeable", "noticable", "noticabel"],
+                            correct: "noticeable"
+                        },
+                        {
+                            q: "The brothers work _____ to solve puzzles.",
+                            options: ["together", "togethre", "togethere"],
+                            correct: "together"
+                        },
+                        {
+                            q: "It is _____ to collect coins for extra lives.",
+                            options: ["necessary", "neccessary", "necesary"],
+                            correct: "necessary"
+                        },
+                        {
+                            q: "They have had many _____ adventures.",
+                            options: ["successful", "succesful", "sucessful"],
+                            correct: "successful"
+                        },
+                        {
+                            q: "Mario is _____ stronger than he looks.",
+                            options: ["definitely", "definately", "definitly"],
+                            correct: "definitely"
+                        },
+                        {
+                            q: "The Mushroom Kingdom is a _____ place.",
+                            options: ["beautiful", "beatiful", "beautifull"],
+                            correct: "beautiful"
+                        }
+                    ]
+                },
+                2: {
+                    title: "Bowser & Jr.",
+                    questions: [{
+                            q: "Bowser is the main _____ of the franchise.",
+                            options: ["villain", "villin", "villaine"],
+                            correct: "villain"
+                        },
+                        {
+                            q: "He has a very intimidating _____.",
+                            options: ["appearance", "appearence", "apearance"],
+                            correct: "appearance"
+                        },
+                        {
+                            q: "Bowser Jr. is often very _____.",
+                            options: ["mischievous", "mischivous", "mischevious"],
+                            correct: "mischievous"
+                        },
+                        {
+                            q: "The Koopa King wants to _____ the land.",
+                            options: ["conquer", "conqure", "conquar"],
+                            correct: "conquer"
+                        },
+                        {
+                            q: "His fire-breathing is extremely _____.",
+                            options: ["dangerous", "dangerus", "dangrous"],
+                            correct: "dangerous"
+                        },
+                        {
+                            q: "He is a _____ enemy of Mario.",
+                            options: ["persistent", "persistant", "peristent"],
+                            correct: "persistent"
+                        },
+                        {
+                            q: "Bowser's castle is an _____ fortress.",
+                            options: ["enormous", "enormus", "enormos"],
+                            correct: "enormous"
+                        },
+                        {
+                            q: "Jr. uses a _____ paintbrush to cause trouble.",
+                            options: ["special", "spezial", "spechial"],
+                            correct: "special"
+                        },
+                        {
+                            q: "They _____ fail to stop the heroes.",
+                            options: ["occasionally", "ocasionally", "occassionally"],
+                            correct: "occasionally"
+                        },
+                        {
+                            q: "Bowser Jr. wants his father's _____.",
+                            options: ["approval", "aproval", "appruval"],
+                            correct: "approval"
+                        }
+                    ]
+                },
+                3: {
+                    title: "Nintendo Dev",
+                    questions: [{
+                            q: "Nintendo is a very _____ company.",
+                            options: ["successful", "succesful", "sucessful"],
+                            correct: "successful"
+                        },
+                        {
+                            q: "They focus on _____ game mechanics.",
+                            options: ["innovative", "inovative", "innovativ"],
+                            correct: "innovative"
+                        },
+                        {
+                            q: "The hardware must be _____ for all users.",
+                            options: ["accessible", "accesible", "accessabel"],
+                            correct: "accessible"
+                        },
+                        {
+                            q: "Quality control is a top _____.",
+                            options: ["priority", "priorety", "prioritie"],
+                            correct: "priority"
+                        },
+                        {
+                            q: "Developing a console is a huge _____.",
+                            options: ["achievement", "achievment", "acheivement"],
+                            correct: "achievement"
+                        },
+                        {
+                            q: "They have a _____ influence on the industry.",
+                            options: ["significant", "significannt", "signifikant"],
+                            correct: "significant"
+                        },
+                        {
+                            q: "The Switch is a _____ hybrid console.",
+                            options: ["versatile", "versatil", "versatyle"],
+                            correct: "versatile"
+                        },
+                        {
+                            q: "Nintendo _____ its older games.",
+                            options: ["preserves", "prezerves", "presurves"],
+                            correct: "preserves"
+                        },
+                        {
+                            q: "The company's _____ is in Kyoto.",
+                            options: ["headquarters", "hedquarters", "headquartes"],
+                            correct: "headquarters"
+                        },
+                        {
+                            q: "Software updates are released _____.",
+                            options: ["periodically", "periodikally", "periodicaly"],
+                            correct: "periodically"
+                        }
+                    ]
+                },
+                4: {
+                    title: "Mario Film",
+                    questions: [{
+                            q: "The movie was an _____ success.",
+                            options: ["immediate", "imediate", "immediat"],
+                            correct: "immediate"
+                        },
+                        {
+                            q: "The world building was very _____.",
+                            options: ["detailed", "detailled", "detaeled"],
+                            correct: "detailed"
+                        },
+                        {
+                            q: "The animation was highly _____.",
+                            options: ["sophisticated", "sofisticated", "sophistikated"],
+                            correct: "sophisticated"
+                        },
+                        {
+                            q: "Critics had _____ opinions at first.",
+                            options: ["conflicting", "conflikting", "confliting"],
+                            correct: "conflicting"
+                        },
+                        {
+                            q: "The soundtrack sounds _____.",
+                            options: ["magnificent", "magnifisent", "magnifikent"],
+                            correct: "magnificent"
+                        },
+                        {
+                            q: "It was a _____ experience for fans.",
+                            options: ["memorable", "memorebel", "memmorrable"],
+                            correct: "memorable"
+                        },
+                        {
+                            q: "The voice acting was _____.",
+                            options: ["excellent", "excelent", "excellant"],
+                            correct: "excellent"
+                        },
+                        {
+                            q: "It reached a global _____.",
+                            options: ["audience", "audienc", "audiense"],
+                            correct: "audience"
+                        },
+                        {
+                            q: "The colors were _____ and bright.",
+                            options: ["vibrant", "vibrante", "vibrunt"],
+                            correct: "vibrant"
+                        },
+                        {
+                            q: "Families went to the _____ together.",
+                            options: ["theater", "theatre", "theatear"],
+                            correct: "theatre"
+                        }
+                    ]
+                },
+                5: {
+                    title: "Yoshi",
+                    questions: [{
+                            q: "Yoshi is a _____ companion.",
+                            options: ["reliable", "relyable", "reliabel"],
+                            correct: "reliable"
+                        },
+                        {
+                            q: "He has a very _____ appearance.",
+                            options: ["unique", "uniq", "unike"],
+                            correct: "unique"
+                        },
+                        {
+                            q: "Yoshi is _____ from other dinosaurs.",
+                            options: ["distinguishable", "distinguishabel", "distingwishable"],
+                            correct: "distinguishable"
+                        },
+                        {
+                            q: "His eggs are his main _____.",
+                            options: ["weapon", "weapen", "weppon"],
+                            correct: "weapon"
+                        },
+                        {
+                            q: "He can stay in the air _____.",
+                            options: ["temporarily", "temporerily", "temporaryly"],
+                            correct: "temporarily"
+                        },
+                        {
+                            q: "Yoshi is _____ for his long tongue.",
+                            options: ["famous", "famos", "famouse"],
+                            correct: "famous"
+                        },
+                        {
+                            q: "He is a very _____ character.",
+                            options: ["popular", "populer", "poppular"],
+                            correct: "popular"
+                        },
+                        {
+                            q: "The level of detail on Yoshi is _____.",
+                            options: ["impressive", "impresive", "impressiv"],
+                            correct: "impressive"
+                        },
+                        {
+                            q: "Yoshi lives on a _____ island.",
+                            options: ["tropical", "tropikal", "tropicle"],
+                            correct: "tropical"
+                        },
+                        {
+                            q: "He helps Mario _____ obstacles.",
+                            options: ["overcome", "overcum", "over-come"],
+                            correct: "overcome"
+                        }
+                    ]
+                }
+            }
         };
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -150,29 +677,29 @@
         let score = 0;
 
         // 1. RE-SYNC SESSION FROM DATABASE
-function syncSession() {
-    let curr = JSON.parse(localStorage.getItem('L_CURR'));
-    let users = JSON.parse(localStorage.getItem('L_DB')) || [];
+        function syncSession() {
+            let curr = JSON.parse(localStorage.getItem('L_CURR'));
+            let users = JSON.parse(localStorage.getItem('L_DB')) || [];
 
-    // If session is lost but we have a database, try to find the last active user
-    if (!curr && users.length > 0) {
-        // We take the first user just to keep the points saving
-        // Or better: redirect them to login
-        alert("Session lost! Redirecting to login...");
-        window.location.href = 'index.html'; 
-    }
-}
+            // If session is lost but we have a database, try to find the last active user
+            if (!curr && users.length > 0) {
+                // We take the first user just to keep the points saving
+                // Or better: redirect them to login
+                alert("Session lost! Redirecting to login...");
+                window.location.href = 'index.html';
+            }
+        }
 
-// Run this immediately when the page loads
-syncSession();
+        // Run this immediately when the page loads
+        syncSession();
 
 
-        window.onload = function() {
+        window.onload = function () {
             const title = document.getElementById('unit-display-title');
             const list = document.getElementById('button-list');
             const unitName = selectedUnit == 1 ? "Space" : "Nintendo";
             title.innerText = "Unit " + selectedUnit + ": " + unitName;
-            
+
             for (let i = 1; i <= 5; i++) {
                 const btn = document.createElement('button');
                 btn.className = "exercise-btn" + (selectedUnit == 2 ? " u2-style" : "");
@@ -185,7 +712,8 @@ syncSession();
         function startQuiz(unit, exercise) {
             const data = unitData[unit][exercise];
             activeQuiz = data.questions;
-            currentQuestion = 0; score = 0;
+            currentQuestion = 0;
+            score = 0;
             document.getElementById('start-interface').style.display = 'none';
             document.getElementById('main-title').style.display = 'none';
             document.getElementById('quiz-container').style.display = 'block';
@@ -194,7 +722,7 @@ syncSession();
 
         function initQuiz() {
             const wrapper = document.getElementById('questions-wrapper');
-            wrapper.innerHTML = ''; 
+            wrapper.innerHTML = '';
             activeQuiz.forEach((data, idx) => {
                 const shuffled = [...data.options].sort(() => Math.random() - 0.5);
                 const div = document.createElement('div');
@@ -209,48 +737,67 @@ syncSession();
         function handleChoice(btn, correct) {
             const buttons = btn.parentElement.querySelectorAll('.opt-btn');
             buttons.forEach(b => b.disabled = true);
-            if (btn.innerText === correct) { btn.classList.add('correct'); score++; } 
-            else { btn.classList.add('wrong'); buttons.forEach(b => { if(b.innerText === correct) b.classList.add('correct'); }); }
+            if (btn.innerText === correct) {
+                btn.classList.add('correct');
+                score++;
+            } else {
+                btn.classList.add('wrong');
+                buttons.forEach(b => {
+                    if (b.innerText === correct) b.classList.add('correct');
+                });
+            }
             setTimeout(() => {
                 if (currentQuestion < activeQuiz.length - 1) {
                     document.querySelectorAll('.question')[currentQuestion].classList.remove('active');
                     currentQuestion++;
                     document.querySelectorAll('.question')[currentQuestion].classList.add('active');
                     document.getElementById('current-idx').innerText = currentQuestion + 1;
-                } else { showResults(); }
+                } else {
+                    showResults();
+                }
             }, 1000);
         }
 
-        function showResults() {
-    const earnedPoints = score * 10; 
-    let users = JSON.parse(localStorage.getItem('L_DB')) || [];
-    let curr = JSON.parse(localStorage.getItem('L_CURR'));
-
-    // If curr is missing, we try to find the user in the DB by a fallback 
-    // (This is a safety net for Firefox local file issues)
-    if (!curr) {
-        alert("Error: Please log in again on the Home page before finishing.");
-        window.location.href = 'index.html';
-        return;
-    }
-
-    // Update the database
-    users = users.map(u => {
-        if (u.username === curr.username) {
-            u.score = (parseInt(u.score) || 0) + earnedPoints;
-            curr.score = u.score;
+        async function saveToGoogleSheets(name, points) {
+            await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ username: name, score: points })
+            });
         }
-        return u;
-    });
 
-    localStorage.setItem('L_DB', JSON.stringify(users));
-    localStorage.setItem('L_CURR', JSON.stringify(curr));
 
-    document.getElementById('quiz-box').style.display = 'none';
-    document.getElementById('result-screen').style.display = 'block';
-    document.getElementById('score-text').innerText = `Points: ${earnedPoints}`;
-}
+        function showResults() {
+            const earnedPoints = score * 10;
+            let users = JSON.parse(localStorage.getItem('L_DB')) || [];
+            let curr = JSON.parse(localStorage.getItem('L_CURR'));
 
+            // If curr is missing, we try to find the user in the DB by a fallback 
+            // (This is a safety net for Firefox local file issues)
+            if (!curr) {
+                alert("Error: Please log in again on the Home page before finishing.");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Update the database
+            users = users.map(u => {
+                if (u.username === curr.username) {
+                    u.score = (parseInt(u.score) || 0) + earnedPoints;
+                    curr.score = u.score;
+                }
+                return u;
+            });
+
+            localStorage.setItem('L_DB', JSON.stringify(users));
+            localStorage.setItem('L_CURR', JSON.stringify(curr));
+
+            document.getElementById('quiz-box').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+            document.getElementById('score-text').innerText = `Points: ${earnedPoints}`;
+
+            saveToGoogleSheets(u.username, u.score);
+        }
     </script>
 </body>
+
 </html>
