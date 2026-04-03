@@ -795,7 +795,7 @@
             document.getElementById('result-screen').style.display = 'block';
             document.getElementById('score-text').innerText = `Points: ${earnedPoints}`;
 
-            saveToGoogleSheets(u.username, u.score);
+            saveToGoogleSheets(curr.username, earnedPoints);
         }
     </script>
 </body>
