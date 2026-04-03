@@ -15,8 +15,23 @@
         #account-container { position: relative; display: none; }
         #account-circle { width: 40px; height: 40px; background: #3498db; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-weight: bold; }
         #account-dropdown { display: none; position: absolute; right: 0; top: 45px; background: white; color: #333; padding: 15px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); width: 180px; z-index: 100; }
-        #account-container:hover #account-dropdown { display: block; }
+        #account-dropdown.show {
+    display: block !important;
+}
 
+/* Make sure the dropdown is hidden by default */
+#account-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    padding: 15px;
+    width: 200px;
+    z-index: 1000;
+}
         /* Hero & Buttons */
         .hero { padding: 60px 5%; text-align: center; }
         #learning-sections { display: none; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px; margin-bottom: 50px; }
@@ -171,11 +186,11 @@
         <div class="nav-links">
             <a onclick="alert('All features are free!')">Preise</a>
             <a id="login-link" onclick="openAuth('login')">Login</a>
-            <div id="account-container">
+            <div id="account-container" onclick="toggleDropdown(event)">
                 <div id="account-circle">?</div>
                 <div id="account-dropdown">
                     <p><strong>User:</strong> <span id="display-user"></span></p>
-                    <p><strong>Total Score:</strong> <span id="display-score">0</span></p>
+                    <p><strong>Score:</strong> <span id="display-score">0</span></p>
                     <hr>
                     <button class="btn" style="background:#e74c3c" onclick="deleteAcc()">Delete Account</button>
                     <button class="btn" style="background:#7f8c8d" onclick="logout()">Logout</button>
@@ -195,6 +210,20 @@
 </div>
 
 <script>
+    function toggleDropdown(event) {
+    // Prevent the click from closing the menu immediately
+    event.stopPropagation();
+    const dropdown = document.getElementById('account-dropdown');
+    dropdown.classList.toggle('show');
+}
+
+// Close the dropdown if the user clicks anywhere else on the page
+window.onclick = function(event) {
+    const dropdown = document.getElementById('account-dropdown');
+    if (dropdown && dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+    }
+}
 function goToPage(page) {
     const curr = JSON.parse(localStorage.getItem('L_CURR'));
     if (curr) {
