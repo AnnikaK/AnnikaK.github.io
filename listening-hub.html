@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learnly | Exercise Hub</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; color: #333; margin: 0; display: flex; flex-direction: column; align-items: center; padding: 50px 20px; }
+        h1 { color: #2c3e50; font-size: 2.5rem; margin-bottom: 40px; }
+        .hub-container { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+        .unit-btn { 
+            background: #3498db; color: white; border: none; padding: 25px 60px; 
+            font-size: 1.5rem; font-weight: bold; border-radius: 15px; cursor: pointer; 
+            min-width: 280px; transition: 0.3s; box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        .unit-btn:hover { background: #2980b9; transform: translateY(-3px); }
+        .unit-2 { background: #e74c3c; } 
+        .unit-2:hover { background: #c0392b; }
+        .back-link { margin-top: 50px; color: #3498db; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>Exercise Units</h1>
+
+    <div class="hub-container">
+        <!-- Sends a "unit" number to the exercises page -->
+        <button class="unit-btn" onclick="window.location.href='exercises.html?unit=1'">Unit 1: Space</button>
+        <button class="unit-btn unit-2" onclick="window.location.href='exercises.html?unit=2'">Unit 2: Nintendo</button>
+    </div>
+
+    <a href="learnly.html" class="back-link">← Back to Dashboard</a>
+
+</body>
+</html>

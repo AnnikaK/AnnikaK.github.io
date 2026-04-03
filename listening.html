@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learnly | Listening Unit 1</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; color: #333; margin: 0; display: flex; flex-direction: column; align-items: center; padding: 50px 20px; }
+        h1 { color: #2c3e50; font-size: 2.5rem; margin-bottom: 40px; }
+        
+        .main-btn { background: #3498db; color: white; border: none; padding: 25px 60px; font-size: 1.8rem; font-weight: bold; border-radius: 15px; cursor: pointer; transition: 0.3s; box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .main-btn:hover { background: #2980b9; transform: translateY(-3px); }
+
+        #content-container { display: none; background: white; padding: 40px; border-radius: 15px; width: 100%; max-width: 500px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
+        
+        .quiz-section { display: none; text-align: left; }
+        .progress { font-size: 0.9rem; color: #7f8c8d; margin-bottom: 15px; font-weight: bold; }
+        
+        .action-btn { width: 100%; padding: 20px; margin: 10px 0; border: none; border-radius: 10px; cursor: pointer; font-size: 1.2rem; font-weight: bold; transition: 0.2s; color: white; display: block; text-align: center; text-decoration: none; box-sizing: border-box; }
+        .btn-link { background: #3498db; } 
+        .btn-quiz { background: #2ecc71; } 
+        
+        .opt-btn { width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; text-align: left; font-size: 1rem; transition: 0.2s; box-sizing: border-box; }
+        .opt-btn:hover:not(:disabled) { border-color: #3498db; background: #f9f9f9; }
+        .opt-btn.correct { background: #2ecc71 !important; color: white; border-color: #27ae60; }
+        .opt-btn.wrong { background: #e74c3c !important; color: white; border-color: #c0392b; }
+
+        .back-link { margin-top: 50px; display: inline-block; color: #3498db; text-decoration: none; font-weight: bold; cursor: pointer; }
+        .description { color: #7f8c8d; margin-bottom: 25px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+    <h1>Unit 1</h1>
+
+    <div id="start-interface">
+       <button class="main-btn" onclick="showExercise()">exercise 1</button>
+    </div>
+
+    <div id="content-container">
+        <!-- Main Action Card -->
+        <div id="action-menu">
+            <h2 style="color: #2c3e50; margin-top: 0;">Mystery Peter</h2>
+            <p class="description">Listen to the podcast about Ian's childhood mystery, then test your knowledge.</p>
+            
+            <button class="action-btn btn-link" onclick="window.open('https://scanned.page/p/lZ8I1x', '_blank')">
+                Start Listening
+            </button>
+
+            <button class="action-btn btn-quiz" onclick="startQuiz()">
+                Questions
+            </button>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quiz-section" class="quiz-section">
+            <div id="quiz-ui-active">
+                <div class="progress">Question <span id="q-num">1</span> of 10</div>
+                <div id="quiz-content"></div>
+            </div>
+            
+            <div id="result-screen" style="display:none; text-align:center;">
+                <h2>Mission Complete!</h2>
+                <p id="score-text" style="font-size:1.5rem; color: #2ecc71; font-weight: bold;"></p>
+                <p id="feedback-text" style="color: #7f8c8d; margin-bottom: 25px;"></p>
+                <button class="action-btn btn-quiz" onclick="location.reload()">Restart Section</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Permanent Arrow Link -->
+    <a href="learnly.html" id="page-back-link" class="back-link">← Back to Dashboard</a>
+
+    <script>
+        const questions = [
+            { q: "Who found Peter?", a: ["Phillip", "Andrée", "Ian"], c: "Phillip" },
+            { q: "Where was Peter living?", a: ["Australia", "Ecuador", "Austria"], c: "Austria" },
+            { q: "Which Name did Peter use in Austria?", a: ["James", "William", "Kratos"], c: "Kratos" },
+            { q: "How old was Peter when he left the Country?", a: ["11", "15", "16"], c: "15" },
+            { q: "Does Ian still have Contact to Peters Parents?", a: ["Often", "A little bit", "No"], c: "No" },
+            { q: "What did Theo think Peters parents listen to?", a: ["Radio", "Radio and TV", "Neither"], c: "Radio" },
+            { q: "What happened to the Boy Ian heard about in the radio?", a: ["His parents moved to him", "He moved back to his Parents", "He stayed in the new Country, but visited his parents"], c: "His parents moved to him" },
+            { q: "What did Theo think Peters parents will do?", a: ["Move to him", "Nothing", "Send him to a private school"], c: "Nothing" },
+            { q: "Does Ian think Peter will be deported?", a: ["Yes", "Not said", "No"], c: "No" },
+            { q: "What does Peter like?", a: ["Sports", "Tech", "Programming"], c: "Tech" }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+
+        function showExercise() {
+            document.getElementById('start-interface').style.display = 'none';
+            document.getElementById('content-container').style.display = 'block';
+        }
+
+        function startQuiz() {
+            document.getElementById('action-menu').style.display = 'none';
+            document.getElementById('quiz-section').style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const quizContent = document.getElementById('quiz-content');
+            const qData = questions[currentQ];
+            
+            const shuffledAnswers = [...qData.a].sort(() => Math.random() - 0.5);
+            document.getElementById('q-num').innerText = currentQ + 1;
+            
+            quizContent.innerHTML = `
+                <p style="font-size:1.2rem; font-weight:bold; margin-bottom: 20px;">${qData.q}</p>
+                <div id="options-list">
+                    ${shuffledAnswers.map((opt) => `
+                        <button class="opt-btn" onclick="checkAnswer(this, '${qData.c.replace(/'/g, "\\'")}')">${opt}</button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function checkAnswer(btn, correctValue) {
+            const buttons = document.querySelectorAll('.opt-btn');
+            buttons.forEach(b => b.disabled = true);
+
+            if (btn.innerText === correctValue) {
+                btn.classList.add('correct');
+                score++;
+            } else {
+                btn.classList.add('wrong');
+                buttons.forEach(b => {
+                    if (b.innerText === correctValue) b.classList.add('correct');
+                });
+            }
+
+            setTimeout(() => {
+                currentQ++;
+                if (currentQ < questions.length) {
+                    showQuestion();
+                } else {
+                    showResults();
+                }
+            }, 1000);
+        }
+
+        function showResults() {
+            document.getElementById('quiz-ui-active').style.display = 'none';
+            const resultScreen = document.getElementById('result-screen');
+            resultScreen.style.display = 'block';
+            
+            document.getElementById('score-text').innerText = `You earned ${score} points!`;
+            const feedback = score > 7 ? "Excellent work! You're a pro." : "Good effort! Keep practicing.";
+            document.getElementById('feedback-text').innerText = feedback;
+
+            // Save Score to Database
+            let curr = JSON.parse(localStorage.getItem('L_CURR'));
+            let users = JSON.parse(localStorage.getItem('L_DB')) || [];
+
+            if (curr) {
+                users = users.map(user => {
+                    if (user.username === curr.username) {
+                        user.score = (user.score || 0) + score;
+                        curr.score = user.score;
+                    }
+                    return user;
+                });
+                localStorage.setItem('L_DB', JSON.stringify(users));
+                localStorage.setItem('L_CURR', JSON.stringify(curr));
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnly | Home</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; color: #333; }
+        nav { background: #2c3e50; color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #3498db; }
+        .nav-links { display: flex; align-items: center; gap: 20px; }
+        .nav-links a { color: white; text-decoration: none; cursor: pointer; }
+
+        /* Account Section */
+        #account-container { position: relative; display: none; }
+        #account-circle { width: 40px; height: 40px; background: #3498db; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-weight: bold; }
+        #account-dropdown { display: none; position: absolute; right: 0; top: 45px; background: white; color: #333; padding: 15px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); width: 180px; z-index: 100; }
+        #account-container:hover #account-dropdown { display: block; }
+
+        /* Hero & Buttons */
+        .hero { padding: 60px 5%; text-align: center; }
+        #learning-sections { display: none; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px; margin-bottom: 50px; }
+        .practice-btn { 
+            background: #3498db; color: white; border: none; padding: 25px 50px; 
+            font-size: 1.5rem; font-weight: bold; border-radius: 15px; cursor: pointer; 
+            min-width: 220px; transition: 0.2s; box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+        }
+        .practice-btn:hover { background: #2980b9; transform: translateY(-5px); }
+
+        /* Ranking Table Alignment */
+        .ranking-container { 
+            margin: 0 auto; 
+            max-width: 500px; 
+            background: white; 
+            padding: 25px; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            display: none; 
+            border: 1px solid #eee;
+        }
+        .ranking-container h3 { margin-top: 0; color: #2c3e50; font-size: 1.4rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { text-align: left; padding: 12px 15px; border-bottom: 1px solid #f0f0f0; }
+        th { color: #95a5a6; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        td { font-size: 1.05rem; }
+        .rank-col { width: 60px; font-weight: bold; color: #7f8c8d; }
+        .score-col { text-align: right; font-weight: bold; color: #2ecc71; }
+        .rank-1 { background: #fffdf0; }
+        .rank-1 .rank-col { color: #f1c40f; }
+
+        /* Auth Modals */
+        .auth-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000; }
+        .card { background: white; padding: 30px; border-radius: 12px; width: 300px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; color: white; transition: 0.2s; }
+        .login-btn { background: #3498db; }
+        .signup-btn { background: #2ecc71; }
+        .btn:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Learnly</div>
+        <div class="nav-links">
+            <a onclick="alert('All features are free!')">Preise</a>
+            <a id="login-link" onclick="openAuth('login')">Login</a>
+            <div id="account-container">
+                <div id="account-circle">?</div>
+                <div id="account-dropdown">
+                    <p><strong>User:</strong> <span id="display-user"></span></p>
+                    <p><strong>Total Score:</strong> <span id="display-score">0</span></p>
+                    <hr>
+                    <button class="btn" style="background:#e74c3c" onclick="deleteAcc()">Delete Account</button>
+                    <button class="btn" style="background:#7f8c8d" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1 id="hero-title">Welcome to Learnly</h1>
+        <p id="hero-text">Your English learning journey starts now. Please login to start.</p>
+        
+       <div id="learning-sections">
+    <button class="practice-btn" onclick="window.location.href='listening-hub.html'">Listening</button>
+    <button class="practice-btn" onclick="goToPage('exercises-hub.html')">Exercises</button>
+    <button class="practice-btn" onclick="goToPage('reading-hub.html')">Reading</button>
+</div>
+
+<script>
+function goToPage(page) {
+    const curr = JSON.parse(localStorage.getItem('L_CURR'));
+    if (curr) {
+        // This adds ?user=Name to the end of the link
+        window.location.href = page + "?user=" + encodeURIComponent(curr.username);
+    } else {
+        alert("Please login first!");
+    }
+}
+</script>
+        <!-- Ranking Table (Leaderboard) -->
+        <div class="ranking-container" id="ranking-box">
+            <h3>🏆 Global Leaderboard</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="rank-col">Rank</th>
+                        <th>Student</th>
+                        <th class="score-col">Total Points</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Auth Forms -->
+    <div class="auth-overlay" id="auth-modal">
+        <div class="card" id="login-card">
+            <h2>Login</h2>
+            <input type="text" id="li-user" placeholder="Username">
+            <input type="password" id="li-pass" placeholder="Password">
+            <button class="btn login-btn" onclick="doLogin()">Login</button>
+            <p onclick="openAuth('signup')" style="cursor:pointer; color:#3498db; font-size:13px; margin-top:15px;">No account? Sign up</p>
+            <button onclick="closeAuth()" style="border:none; background:none; color:#999; cursor:pointer; margin-top:10px;">Cancel</button>
+        </div>
+        <div class="card" id="signup-card" style="display:none">
+            <h2>Sign Up</h2>
+            <input type="text" id="su-user" placeholder="Username">
+            <input type="password" id="su-pass" placeholder="Password">
+            <button class="btn signup-btn" onclick="doSignup()">Create Account</button>
+            <p onclick="openAuth('login')" style="cursor:pointer; color:#3498db; font-size:13px; margin-top:15px;">Back to Login</p>
+        </div>
+    </div>
+
+    <script>
+        window.onload = updateUI;
+
+        function openAuth(type) {
+            document.getElementById('auth-modal').style.display = 'flex';
+            document.getElementById('login-card').style.display = (type === 'login' ? 'block' : 'none');
+            document.getElementById('signup-card').style.display = (type === 'signup' ? 'block' : 'none');
+        }
+
+        function closeAuth() { document.getElementById('auth-modal').style.display = 'none'; }
+
+        function doSignup() {
+            const u = document.getElementById('su-user').value.trim();
+            const p = document.getElementById('su-pass').value.trim();
+            if(!u || !p) return alert("Fill all fields");
+            
+            let users = JSON.parse(localStorage.getItem('L_DB')) || [];
+            if(users.some(user => user.username.toLowerCase() === u.toLowerCase())) {
+                return alert("Username already taken!");
+            }
+
+            users.push({username: u, password: p, score: 0});
+            localStorage.setItem('L_DB', JSON.stringify(users));
+            alert("Account created!");
+            openAuth('login');
+        }
+
+        function doLogin() {
+            const u = document.getElementById('li-user').value.trim();
+            const p = document.getElementById('li-pass').value.trim();
+            let users = JSON.parse(localStorage.getItem('L_DB')) || [];
+            const found = users.find(x => x.username === u && x.password === p);
+            
+            if(found) {
+                localStorage.setItem('L_CURR', JSON.stringify(found));
+                closeAuth();
+                updateUI();
+            } else { alert("Login failed!"); }
+        }
+
+        function updateUI() {
+            const curr = JSON.parse(localStorage.getItem('L_CURR'));
+            const link = document.getElementById('login-link');
+            const cont = document.getElementById('account-container');
+            const sections = document.getElementById('learning-sections');
+            const heroText = document.getElementById('hero-text');
+            const rankingBox = document.getElementById('ranking-box');
+
+            if(curr) {
+                link.style.display = 'none';
+                cont.style.display = 'block';
+                sections.style.display = 'flex';
+                rankingBox.style.display = 'block';
+                
+                heroText.innerText = "Hello " + curr.username + "! Ready for your next lesson?";
+                document.getElementById('display-user').innerText = curr.username;
+                document.getElementById('display-score').innerText = curr.score || 0;
+                document.getElementById('account-circle').innerText = curr.username.charAt(0).toUpperCase();
+                
+                renderLeaderboard();
+            } else {
+                link.style.display = 'block';
+                cont.style.display = 'none';
+                sections.style.display = 'none';
+                rankingBox.style.display = 'none';
+                heroText.innerText = "Your English learning journey starts now. Please login to start.";
+            }
+function updateUI() {
+    // ... your existing code ...
+    if(curr) {
+        // ...
+        renderLeaderboard(); // Ensure this is called here!
+    }
+}
+        }
+
+        function renderLeaderboard() {
+            let users = JSON.parse(localStorage.getItem('L_DB')) || [];
+            users.sort((a, b) => (b.score || 0) - (a.score || 0));
+            
+            const body = document.getElementById('leaderboard-body');
+            body.innerHTML = users.map((u, i) => `
+                <tr class="${i === 0 ? 'rank-1' : ''}">
+                    <td class="rank-col">#${i + 1}</td>
+                    <td>${u.username} ${u.username === JSON.parse(localStorage.getItem('L_CURR')).username ? '(You)' : ''}</td>
+                    <td class="score-col">${u.score || 0}</td>
+                </tr>
+            `).join('');
+        }
+
+        function logout() { 
+            localStorage.removeItem('L_CURR'); 
+            updateUI(); 
+        }
+
+        function deleteAcc() { 
+            if(!confirm("Delete account forever?")) return;
+            const curr = JSON.parse(localStorage.getItem('L_CURR'));
+            let users = JSON.parse(localStorage.getItem('L_DB')) || [];
+            users = users.filter(x => x.username !== curr.username);
+            localStorage.setItem('L_DB', JSON.stringify(users));
+            logout();
+        }
+    </script>
+</body>
+</html>
