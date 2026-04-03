@@ -122,62 +122,114 @@
         const selectedUnit = urlParams.get('unit') || 1;
         let currentQ = 0; let score = 0; let activeData = null;
 
-        const allData = {
-            1: {
-                1: { title: "The Rise of AI", text: "<p>Artificial Intelligence is no longer sci-fi...</p>", questions: [{q:"What is AI?", a:["Art","AI","App"], c:"AI"}] },
-                2: { title: "Nvidia: AI Engine", text: "<p>Nvidia transformed from gaming to AI...</p>", questions: [{q:"Founded?", a:["1990","1993"], c:"1993"}] }
-            },
-            2: {
-                1: {
-                    title: "The Curse of the Black Raven",
-                    text: `<p>The salty mist of the Caribbean Sea stung Captain Silas’s eyes as he stood on the deck of the <i>Black Raven</i>. For fifteen years, he had searched for the legendary Isle of Echoes, a place said to hold a treasure that could grant a sailor eternal life. His crew whispered about a curse: any man who set foot on the isle would never hear another sound except the echo of his own heartbeat.</p>
-                           <p>As the moon rose, a jagged silhouette appeared on the horizon. Silas felt a cold shiver. They were being pulled in by a current that didn't exist on any map. As the ship scraped against the white sands, the crew went silent. The gulls and the ocean sounds vanished. The price of the treasure was far heavier than any of them had imagined.</p>`,
-                    questions: [
-                        { q: "What is the ship's name?", a: ["Black Raven", "Sea Hawk", "Echo Queen"], c: "Black Raven" },
-                        { q: "Where does it take place?", a: ["Caribbean Sea", "North Sea", "Atlantic"], c: "Caribbean Sea" },
-                        { q: "How long was the search?", a: ["5 years", "15 years", "20 years"], c: "15 years" },
-                        { q: "The treasure grants...", a: ["Gold", "Eternal life", "Speed"], c: "Eternal life" },
-                        { q: "The curse affects your...", a: ["Eyes", "Hearing", "Hands"], c: "Hearing" },
-                        { q: "The sand was...", a: ["Black", "White", "Red"], c: "White" },
-                        { q: "The island glowed...", a: ["Green", "Blue", "Yellow"], c: "Green" },
-                        { q: "What vanished first?", a: ["The wind", "The crew", "The island"], c: "The wind" },
-                        { q: "Captain's name?", a: ["Silas", "Jack", "Peter"], c: "Silas" },
-                        { q: "The island was...", a: ["A legend", "A map", "A cloud"], c: "A legend" },
-                        { q: "Crew origin?", a: ["Spain", "Every corner of globe", "Local"], c: "Every corner of globe" },
-                        { q: "Ship material?", a: ["Iron", "Mahogany", "Plastic"], c: "Mahogany" },
-                        { q: "Silas felt a...", a: ["Warmth", "Shiver", "Pain"], c: "Shiver" },
-                        { q: "The current was...",  a: ["Weak", "Not on any map", "Fast"], c: "Not on any map" },
-                        { q: "Silence meant...", a: ["Peace", "The curse", "Sleep"], c: "The curse" },
-                        { q: "Lookout's spot?", a: ["Deck", "Crow's nest", "Cabin"], c: "Crow's nest" },
-                        { q: "Island feature?", a: ["Forest", "Lagoon", "City"], c: "Lagoon" },
-                        { q: "Silas's eyes were...", a: ["Closed", "Stung by mist", "Blue"], c: "Stung by mist" },
-                        { q: "The silhouette was...", a: ["Round", "Jagged", "Small"], c: "Jagged" },
-                        { q: "The price was...", a: ["Cheap", "Heavier than imagined", "Paid in gold"], c: "Heavier than imagined" }
-                    ]
-                },
-                2: {
-                    title: "Anatomy of a Man-of-War",
-                    text: `<p>During the Golden Age, ships were floating fortresses. The <b>hull</b> was the main body. Below the water was the <b>keel</b> for stability. On deck, <b>masts</b> held the <b>rigging</b>. The <b>mainmast</b> was tallest. The <b>bowsprit</b> helped steer. Cannons were on the <b>gun deck</b> behind <b>gun ports</b>. The captain used the <b>quarterdeck</b>, and the <b>rudder</b> controlled direction.</p>`,
-                    questions: [
-                        { q: "Main body name?", a: ["Hull", "Keel", "Stern"], c: "Hull" },
-                        { q: "Stability part?", a: ["Mast", "Keel", "Sail"], c: "Keel" },
-                        { q: "Tallest mast?", a: ["Mainmast", "Foremast", "Bowsprit"], c: "Mainmast" },
-                        { q: "Cannon windows?", a: ["Gun ports", "Hatches", "Doors"], c: "Gun ports" },
-                        { q: "Captain's spot?", a: ["Hull", "Quarterdeck", "Bow"], c: "Quarterdeck" },
-                        { q: "Direction control?", a: ["Rudder", "Masts", "Anchor"], c: "Rudder" },
-                        { q: "Front pole?", a: ["Bowsprit", "Stern", "Keel"], c: "Bowsprit" },
-                        { q: "System of ropes?", a: ["Rigging", "Hull", "Deck"], c: "Rigging" },
-                        { q: "Rear of ship?", a: ["Bow", "Stern", "Masts"], c: "Stern" },
-                        { q: "Cannon deck?", a: ["Sun deck", "Gun deck", "Lower deck"], c: "Gun deck" },
-                        { q: "Golden Age of...", a: ["Discovery", "Piracy", "Steam"], c: "Piracy" },
-                        { q: "Stability in...", a: ["Storms", "Sun", "Harbors"], c: "Storms" },
-                        { q: "Masts reached...", a: ["The sky", "The sand", "The hull"], c: "The sky" },
-                        { q: "Officers' cabins?", a: ["Near bow", "Near stern", "In masts"], c: "Near stern" },
-                        { q: "Keel was a heavy...", a: ["Rope", "Beam", "Stone"], c: "Beam" }
-                    ]
-                }
-            }
-        };
+        const readingData = {
+    1: {
+        1: {
+            title: "The Future of Artificial Intelligence",
+            text: `<p>Artificial Intelligence, or AI, is changing the world faster than almost any other technology in history. At its simplest level, AI is a type of computer science that allows machines to learn from experience and perform human-like tasks. You might see AI every day when you use a smartphone to unlock your face, or when a streaming service suggests a new movie you might enjoy based on your past choices.</p>
+                   <p>The development of AI depends on two main things: massive amounts of data and very powerful computers. By looking at millions of examples, an AI "learns" patterns. This is called machine learning. For example, if you show a computer thousands of photos of cats, it eventually learns to recognize a cat on its own. This technology is now being used in medicine to help doctors find diseases more accurately and in cars that can drive autonomously without a human steering. These innovations are not just theoretical; they are saving lives today by reducing human error in high-stakes environments.</p>
+                   <p>However, the rise of AI also brings big challenges and ethical questions. Many people worry that robots and smart software might take over jobs in factories or offices, leading to unemployment. There is also the problem of "deepfakes," which are realistic but fake images and videos created by AI. This makes it difficult to know what is real on the internet. Experts say we must create international rules to ensure AI is used for good and remains transparent.</p>
+                   <p>In the future, AI will likely become a personal assistant for everyone, helping us learn languages faster or solving complex problems like climate change. The goal is not to replace humans, but to augment our intelligence. As we move forward, it is important for students to understand how these systems work so they can use them responsibly and creatively in their future careers. The era of AI is just beginning, and we are the architects of its destiny.</p>`, // ~290 words
+            questions: [
+                { q: "What does AI stand for?", a: ["Artificial Intelligence", "Auto Info", "Alpha Intel"], c: "Artificial Intelligence" },
+                { q: "AI allows machines to learn from...", a: ["Experience", "Food", "Batteries"], c: "Experience" },
+                { q: "What is 'Machine Learning'?", a: ["Building engines", "Learning patterns from data", "Typing fast"], c: "Learning patterns from data" },
+                { q: "How can AI help doctors?", a: ["Detecting diseases", "Cleaning", "Driving"], c: "Detecting diseases" },
+                { q: "What is an autonomous car?", a: ["A fast car", "A self-driving car", "An electric car"], c: "A self-driving car" },
+                { q: "What is a major worry about AI?", a: ["Unemployment", "Too much sleep", "Better internet"], c: "Unemployment" },
+                { q: "What are 'deepfakes'?", a: ["Deep oceans", "Realistic fake media", "Fast robots"], c: "Realistic fake media" },
+                { q: "AI development needs data and...", a: ["Water", "Powerful computers", "Paper"], c: "Powerful computers" },
+                { q: "The goal is to _____ human intelligence.", a: ["Replace", "Augment", "Stop"], c: "Augment" },
+                { q: "Experts say we need _____ for AI.", a: ["More games", "International rules", "No electricity"], c: "International rules" },
+                { q: "Streaming services use AI for...", a: ["Suggestions", "Recording", "Buying"], c: "Suggestions" },
+                { q: "To recognize cats, AI needs...", a: ["Photos", "Milk", "Toys"], c: "Photos" },
+                { q: "Face unlock is an example of...", a: ["Daily AI", "Magic", "A virus"], c: "Daily AI" },
+                { q: "Machine learning looks for...", a: ["Errors", "Patterns", "Colors"], c: "Patterns" },
+                { q: "AI can solve problems like...", a: ["Climate change", "Cooking", "Walking"], c: "Climate change" },
+                { q: "Students should use AI...", a: ["Responsibly", "To cheat", "Never"], c: "Responsibly" },
+                { q: "The era of AI is...", a: ["Ending", "Just beginning", "Old"], c: "Just beginning" },
+                { q: "AI reduces human _____.", a: ["Happiness", "Error", "Speed"], c: "Error" },
+                { q: "Deepfakes make it hard to...", a: ["Sleep", "Know what is real", "Play games"], c: "Know what is real" },
+                { q: "AI mimics _____ tasks.", a: ["Animal", "Human-like", "Robot-only"], c: "Human-like" }
+            ]
+        },
+        2: {
+            title: "Nvidia: The Graphics Giant",
+            text: `<p>Nvidia Corporation has evolved from a small graphics card maker into the most influential force in modern technology. Founded in 1993, the company initially focused on specialized hardware for video games. They invented the Graphics Processing Unit (GPU), which allowed computers to render beautiful, complex images much faster than before. For years, gamers were the only ones who cared about Nvidia, but that changed when scientists realized these chips were good for more than just play.</p>
+                   <p>Unlike a traditional computer processor (CPU) that handles one task at a time, a GPU can process thousands of small tasks simultaneously. This is called parallel computing. In the mid-2000s, Nvidia released a software platform called CUDA, which let developers use GPUs for scientific research. This was a turning point. Suddenly, GPUs were being used to simulate weather patterns, analyze medical data, and eventually, build the massive neural networks that power today's Artificial Intelligence.</p>
+                   <p>As the demand for AI exploded, so did Nvidia's value. Their chips, like the H100, are now the "gold" of the tech world. Every major company, from Google to Microsoft, relies on Nvidia's architecture to run their data centers. While competitors are trying to build their own chips, Nvidia's head start in both hardware and software makes them difficult to beat. Today, the company stands as the primary engine driving the era of machine learning and digital transformation, proving that a gaming company could truly change the entire world forever.</p>`, // ~260 words
+            questions: [
+                { q: "When was Nvidia founded?", a: ["1990", "1993", "2000"], c: "1993" },
+                { q: "What did Nvidia invent?", a: ["The CPU", "The GPU", "The Internet"], c: "The GPU" },
+                { q: "What was their original focus?", a: ["Video games", "Medicine", "Weather"], c: "Video games" },
+                { q: "What is parallel computing?", a: ["One task at a time", "Thousands of tasks at once", "Manual math"], c: "Thousands of tasks at once" },
+                { q: "What is the name of their software platform?", a: ["CUDA", "Python", "Windows"], c: "CUDA" },
+                { q: "Why did scientists like GPUs?", a: ["For gaming", "For research power", "They are cheap"], c: "For research power" },
+                { q: "Nvidia's chips are called the _____ of tech.", a: ["Silver", "Gold", "Iron"], c: "Gold" },
+                { q: "Which chip model is mentioned?", a: ["H100", "A1", "X500"], c: "H100" },
+                { q: "Nvidia is the _____ of the AI revolution.", a: ["Brake", "Engine", "Fuel"], c: "Engine" },
+                { q: "Where is Nvidia's HQ implied to influence?", a: ["Data centers", "Local shops", "Schools"], c: "Data centers" },
+                { q: "GPUs handle thousands of _____ tasks.", a: ["Large", "Small", "Secret"], c: "Small" },
+                { q: "CUDA allows GPUs to be used for _____ computing.", a: ["General-purpose", "Gaming-only", "Slow"], c: "General-purpose" },
+                { q: "Who are their current main customers?", a: ["Only gamers", "Major tech companies", "Artists"], c: "Major tech companies" },
+                { q: "Nvidia helps build _____ networks.", a: ["Radio", "Neural", "Social"], c: "Neural" },
+                { q: "Nvidia's value has _____.", a: ["Dropped", "Skyrocketed", "Stayed same"], c: "Skyrocketed" }
+            ]
+        }
+    },
+    2: {
+        1: {
+            title: "The Legend of the Golden Compass",
+            text: `<p>The salty wind of the Atlantic Ocean whipped through Captain Julian’s beard as he stood firmly on the deck of the <i>Sea Serpent</i>. For nearly two decades, Julian had dedicated his life to a single obsession: finding the Golden Compass. Legend said this magical artifact didn't point North, but rather toward the greatest desire of the person holding it. To some, that was a mountain of gold; to Julian, it was the hidden island where his father had vanished years ago during a terrible storm.</p>
+                   <p>His crew was a mixture of brave sailors and dangerous outcasts. Among them was Silas, a giant of a man with a scarred face who served as the boatswain, and young Leo, a cabin boy who had never seen the world beyond the harbor of London until now. They had been sailing through a thick, unnatural fog for three days. The air was cold, and the wood of the ship groaned under the pressure of the waves. "Steady as she goes!" Julian roared, his voice cutting through the mist like a blade. He knew they were close; the water had turned a strange shade of purple, a sign mentioned in the ancient journals of the pirate lords.</p>
+                   <p>Suddenly, the fog lifted, revealing a jagged coastline that looked like the teeth of a giant. This was the Isle of Skulls. "Lower the anchors!" Silas commanded, his voice echoing across the water. The crew worked with lightning speed, for they knew that these waters were home to creatures that had sunk many ships before them. Julian looked at the shore through his brass telescope. There, sitting atop a white stone pedestal near the beach, was a glimmering object. It was the compass. However, as the first boat touched the sand, a deep, rumbling sound began to shake the very ground. The island wasn't just land; it was waking up. Julian realized that the treasure was a trap, and the true adventure was just beginning as the sand began to swirl into a massive whirlpool around the <i>Sea Serpent</i>.</p>`, // ~365 words
+            questions: [
+                { q: "What is the ship's name?", a: ["Sea Serpent", "Black Raven", "Ocean King"], c: "Sea Serpent" },
+                { q: "Where does the Golden Compass point?", a: ["North", "Your greatest desire", "The nearest gold"], c: "Your greatest desire" },
+                { q: "How long has Julian searched?", a: ["10 years", "Almost 20 years", "5 years"], c: "Almost 20 years" },
+                { q: "Who is Silas?", a: ["The captain", "The boatswain", "The cabin boy"], c: "The boatswain" },
+                { q: "What color was the water?", a: ["Blue", "Purple", "Green"], c: "Purple" },
+                { q: "Where did Leo come from?", a: ["London", "Paris", "Spain"], c: "London" },
+                { q: "What was the island called?", a: ["Echo Isle", "Isle of Skulls", "Gold Land"], c: "Isle of Skulls" },
+                { q: "How long was the fog?", a: ["One day", "Three days", "A week"], c: "Three days" },
+                { q: "Julian looked through a...", a: ["Mirror", "Brass telescope", "Window"], c: "Brass telescope" },
+                { q: "The compass sat on a...", a: ["Tree", "White stone pedestal", "Table"], c: "White stone pedestal" },
+                { q: "What did the island do?", a: ["Sank", "Started waking up", "Caught fire"], c: "Started waking up" },
+                { q: "Silas has a _____ face.", a: ["Kind", "Scarred", "Funny"], c: "Scarred" },
+                { q: "What cut through the mist?", a: ["Julian's voice", "A light", "A cannon"], c: "Julian's voice" },
+                { q: "The wood of the ship...", a: ["Burned", "Groaned", "Broke"], c: "Groaned" },
+                { q: "Leo had never seen...", a: ["The world", "A ship", "Gold"], c: "The world" },
+                { q: "The coastline looked like...", a: ["Clouds", "Giant's teeth", "Walls"], c: "Giant's teeth" },
+                { q: "Silas commanded to...", a: ["Fire cannons", "Lower anchors", "Sing"], c: "Lower anchors" },
+                { q: "The sand turned into a...", a: ["Whirlpool", "Mountain", "Road"], c: "Whirlpool" },
+                { q: "Julian's father vanished in a...", a: ["War", "Storm", "Forest"], c: "Storm" },
+                { q: "The treasure was a...", a: ["Gift", "Trap", "Map"], c: "Trap" }
+            ]
+        },
+        2: {
+            title: "Anatomy of a Pirate Ship",
+            text: `<p>To survive the dangerous life at sea, a pirate had to know every inch of his vessel. The most vital part was the <b>hull</b>, the heavy outer shell of the ship that kept the water out. Inside the hull was the <b>hold</b>, where food, fresh water, and stolen treasure were stored. For stability, the <b>keel</b> ran along the very bottom of the ship, acting like a backbone to prevent the boat from tipping over during a heavy gale.</p>
+                   <p>Above the water, the <b>deck</b> was the main area of activity. The <b>quarterdeck</b> was a raised section at the back where the captain and officers stood to navigate. This area gave them a clear view of the entire ship. Near the front was the <b>forecastle</b>, which often housed the crew's sleeping quarters. The <b>masts</b> were tall wooden poles that held the massive sails; the <b>mainmast</b> was the center of power, while the <b>foremast</b> helped with steering. Finally, the <b>rudder</b> at the back, connected to the ship's wheel, was the only way to guide the ship through narrow coral reefs. If the rudder broke, the ship was at the mercy of the wind.</p>`, // ~215 words
+            questions: [
+                { q: "What keeps water out?", a: ["The hull", "The sail", "The flag"], c: "The hull" },
+                { q: "Where is treasure stored?", a: ["The hold", "The mast", "The wheel"], c: "The hold" },
+                { q: "What is the ship's 'backbone'?", a: ["The keel", "The deck", "The anchor"], c: "The keel" },
+                { q: "Where do officers stand?", a: ["The quarterdeck", "The kitchen", "The hull"], c: "The quarterdeck" },
+                { q: "What is the tallest pole called?", a: ["Foremast", "Mainmast", "Flagpole"], c: "Mainmast" },
+                { q: "What guides the ship?", a: ["The rudder", "The keel", "The floor"], c: "The rudder" },
+                { q: "Where did the crew sleep?", a: ["The forecastle", "The hold", "The masts"], c: "The forecastle" },
+                { q: "The rudder is connected to the...", a: ["Wheel", "Anchor", "Bell"], c: "Wheel" },
+                { q: "A 'gale' is a type of...", a: ["Storm/Wind", "Fish", "Food"], c: "Storm/Wind" },
+                { q: "Masts are made of...", a: ["Iron", "Wood", "Gold"], c: "Wood" },
+                { q: "The hull is the outer _____.", a: ["Shell", "Window", "Door"], c: "Shell" },
+                { q: "Which part helps steering?", a: ["Foremast", "Treasure", "The hold"], c: "Foremast" },
+                { q: "A broken rudder means...", a: ["No food", "No control", "Fast speed"], c: "No control" },
+                { q: "Narrow areas in water are...", a: ["Reefs", "Clouds", "Cities"], c: "Reefs" },
+                { q: "The quarterdeck is at the...", a: ["Front", "Back/Rear", "Middle"], c: "Back/Rear" }
+            ]
+        }
+    }
+};
 
        window.onload = function() {
     const title = document.getElementById('unit-display-title');
