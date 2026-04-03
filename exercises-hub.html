@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learnly | Exercise Hub</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; color: #333; margin: 0; display: flex; flex-direction: column; align-items: center; padding: 50px 20px; }
@@ -18,6 +19,54 @@
         .back-link { margin-top: 50px; color: #3498db; text-decoration: none; font-weight: bold; }
         .back-link { margin-top: 50px; color: db; text-decoration: none; font-weight: bold; }
     </style>
+    <style>
+        /* 1. Global Scaling */
+        body {
+            padding: 20px 10px; /* Smaller padding for mobile edges */
+        }
+    
+        /* 2. Responsive Containers */
+        #quiz-container, #content-container, .ranking-container {
+            width: 95%; /* Take up almost full width on small screens */
+            max-width: 600px; /* But stay slim on desktop */
+            padding: 20px; /* Reduce padding inside the box */
+            box-sizing: border-box;
+        }
+    
+        /* 3. Button Column Scaling */
+        .exercise-btn, .reading-btn, .unit-btn {
+            width: 100%; /* Full width on mobile */
+            max-width: 320px; /* Max size on desktop */
+            padding: 15px 20px;
+            font-size: 1.1rem; /* Slightly smaller text for mobile */
+        }
+    
+        /* 4. Table Scroll (Leaderboard) */
+        .ranking-container {
+            overflow-x: auto; /* Allow horizontal swipe if the table is too wide */
+        }
+        
+        table {
+            font-size: 0.9rem; /* Smaller font for mobile tables */
+        }
+    
+        /* 5. Navigation Bar */
+        nav {
+            flex-direction: column; /* Stack logo and login on very small screens */
+            gap: 10px;
+            text-align: center;
+            padding: 1rem;
+        }
+    
+        /* 6. Media Query (Specific for small phones) */
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .hero { padding: 40px 5%; }
+            .practice-btn { font-size: 1.2rem; padding: 20px; }
+            .opt-btn { padding: 12px; font-size: 1rem; }
+        }
+    </style>
+    
 </head>
 <body>
 
