@@ -190,21 +190,32 @@
         }
 
         function showResults() {
-            document.getElementById('quiz-content').style.display = 'none';
-            document.getElementById('result-screen').style.display = 'block';
-            document.getElementById('final-score').innerText = `Score: ${score} / ${activeData.questions.length}`;
-            
-            let curr = JSON.parse(localStorage.getItem('L_CURR'));
-            let users = JSON.parse(localStorage.getItem('L_DB')) || [];
-            if (curr) {
-                users = users.map(u => {
-                    if (u.username === curr.username) { u.score = (u.score || 0) + score; curr.score = u.score; }
-                    return u;
-                });
-                localStorage.setItem('L_DB', JSON.stringify(users));
-                localStorage.setItem('L_CURR', JSON.stringify(curr));
+    // 1. Calculate points (Example: 10 per correct answer)
+    const earnedPoints = score * 10; 
+    
+    // 2. Get the database
+    let curr = JSON.parse(localStorage.getItem('L_CURR'));
+    let users = JSON.parse(localStorage.getItem('L_DB')) || [];
+
+    if (curr) {
+        // 3. Update the user in the list
+        users = users.map(u => {
+            if (u.username === curr.username) {
+                // Use parseInt to avoid math errors
+                u.score = (parseInt(u.score) || 0) + earnedPoints;
+                curr.score = u.score;
             }
-        }
+            return u;
+        });
+
+        // 4. SAVE BOTH (The most important step!)
+        localStorage.setItem('L_DB', JSON.stringify(users));
+        localStorage.setItem('L_CURR', JSON.stringify(curr));
+        
+        // UI Update
+        document.getElementById('score-text').innerText = `You earned ${earnedPoints} points!`;
+    }
+}
     </script>
 </body>
 </html>
